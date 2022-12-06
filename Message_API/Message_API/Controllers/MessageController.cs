@@ -17,13 +17,14 @@ namespace Message_API.Controllers
         public MessageController(IMessageRepository _repos) 
         {
             repos = _repos;
-        }  
+        }
 
 
-        [HttpGet]
-        public IActionResult Get()
+        [HttpGet("get-all-menssages")]
+        public IActionResult GetMessage()
         {
-            return Ok();
+            var message = repos.GetALLMESSAGE();
+            return Ok(message);
         }
 
         [HttpPost]

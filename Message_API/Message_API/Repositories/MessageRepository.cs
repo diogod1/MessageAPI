@@ -6,6 +6,7 @@ namespace Message_API.Repositories
     public interface IMessageRepository
     {
         public bool Send(PostMessage mensagem);
+        public List<Message> GetALLMESSAGE();
     }
 
     public class MessageRepository : IMessageRepository
@@ -38,5 +39,7 @@ namespace Message_API.Repositories
                 return false;
             }
         }
+
+        public List<Message> GetALLMESSAGE() => db.messages.ToList();
     }
 }
