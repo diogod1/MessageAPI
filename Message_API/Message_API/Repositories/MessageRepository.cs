@@ -1,5 +1,6 @@
 ﻿using Message_API.Data;
 using Message_API.Models;
+using System;
 
 namespace Message_API.Repositories
 {
@@ -7,6 +8,7 @@ namespace Message_API.Repositories
     {
         public bool Send(PostMessage mensagem);
         public List<Message> GetALLMESSAGE();
+        public List<Chats> GetAllChats();
     }
 
     public class MessageRepository : IMessageRepository
@@ -41,5 +43,7 @@ namespace Message_API.Repositories
         }
 
         public List<Message> GetALLMESSAGE() => db.messages.ToList();
+
+        public List<Chats> GetAllChats() => db.chats.ToList();
     }
 }

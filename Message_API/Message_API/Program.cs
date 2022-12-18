@@ -13,6 +13,7 @@ builder.Services.AddDbContext<APIDbContext>(options => options.UseMySql(
 );
 
 builder.Services.AddScoped<IMessageRepository,MessageRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

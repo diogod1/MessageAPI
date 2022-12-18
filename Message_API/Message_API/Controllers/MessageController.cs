@@ -19,12 +19,32 @@ namespace Message_API.Controllers
             repos = _repos;
         }
 
+        [HttpGet("get-all-chats")]
+        public IActionResult GetAllChat()
+        {
+            var chats = repos.GetAllChats();
+            if (chats != null)
+            {
+                return Ok(chats);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
-        [HttpGet("get-all-menssages")]
+        [HttpGet("get-all-messages")]
         public IActionResult GetMessage()
         {
             var message = repos.GetALLMESSAGE();
-            return Ok(message);
+            if (message != null) 
+            {
+                return Ok(message);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
