@@ -13,10 +13,26 @@ namespace Message_API.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IMessageRepository repos;
+        private Timer _timer;
+        private DateTime _lastChecked;
 
         public MessageController(IMessageRepository _repos) 
         {
             repos = _repos;
+        }
+
+        [HttpGet("get-message-chatid")]
+        public IActionResult GetMessageChatid(int _chatid, DateTime _lastchecked)
+        {
+            var count_messages = repos.GetMessages(_chatid, _lastchecked);
+            if (count_messages != null)
+            {
+                return Ok(count_messages);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet("get-all-chats")]

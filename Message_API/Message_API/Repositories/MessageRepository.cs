@@ -9,6 +9,7 @@ namespace Message_API.Repositories
         public bool Send(PostMessage mensagem);
         public List<Message> GetALLMESSAGE();
         public List<Chats> GetAllChats();
+        public List<Message> GetMessages(int chatid,DateTime lastchecked);
     }
 
     public class MessageRepository : IMessageRepository
@@ -45,5 +46,7 @@ namespace Message_API.Repositories
         public List<Message> GetALLMESSAGE() => db.messages.ToList();
 
         public List<Chats> GetAllChats() => db.chats.ToList();
+
+        public List<Message> GetMessages(int chatid, DateTime lastchecked) => db.messages.Where(u => u.chatid == chatid && u.sentAt >= lastchecked).ToList();
     }
 }
