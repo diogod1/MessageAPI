@@ -24,14 +24,14 @@ namespace Message_API.Controllers
         [HttpGet("get-message-chatid")]
         public IActionResult GetMessageChatid(int _chatid, DateTime _lastchecked)
         {
-            var count_messages = repos.GetMessages(_chatid, _lastchecked);
-            if (count_messages != null)
+            List<Message> messages = repos.GetMessages(_chatid, _lastchecked);
+            if (messages.Count > 0)
             {
-                return Ok(count_messages);
+                return Ok(messages);
             }
             else
             {
-                return NotFound();
+                return BadRequest();
             }
         }
 
