@@ -19,6 +19,23 @@ namespace Message_API.Controllers
             repos = _repos;
         }
 
+        [HttpPost("login-user")]
+        public ActionResult Login(string username, string password)
+        {
+            var login = repos.login_user(username, password);
+
+            if (login == true)
+            {
+                // Login successful
+                return Ok();
+            }
+            else
+            {
+                // Login failed
+                return BadRequest();
+            }
+        }      
+
         [HttpPut("update-user")]
         public IActionResult UpdateUser(int id, RequestUserUpdate requestUser)
         {

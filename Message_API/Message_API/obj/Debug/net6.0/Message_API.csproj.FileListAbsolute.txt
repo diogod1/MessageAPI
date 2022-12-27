@@ -118,3 +118,4 @@ C:\Users\diogduarte\Documents\GitHub\MessageAPI\Message_API\Message_API\obj\Debu
 C:\Users\diogduarte\Documents\GitHub\MessageAPI\Message_API\Message_API\obj\Debug\net6.0\Message_API.pdb
 C:\Users\diogduarte\Documents\GitHub\MessageAPI\Message_API\Message_API\obj\Debug\net6.0\Message_API.genruntimeconfig.cache
 C:\Users\diogduarte\Documents\GitHub\MessageAPI\Message_API\Message_API\obj\Debug\net6.0\ref\Message_API.dll
+C:\Users\diogo\Documents\GitHub\MessageAPI\Message_API\Message_API\bin\Debug\net6.0\BCrypt.Net-Next.dll
