@@ -8,6 +8,7 @@ namespace Message_API.Repositories
     {
         public bool update_profile(Users user);
         public bool login_user(string username, string password);
+        public bool regist_user(string username, string password, string Nome);
     }
 
     public class UserRepository : IUserRepository
@@ -34,6 +35,27 @@ namespace Message_API.Repositories
                 else return false;
             }
             else return false;
+        }
+
+        public bool regist_user(string username, string password, string Nome)
+        {
+            var check_username = db.users.FirstOrDefault(l => l.username == username);
+            if (check_username == null)
+            {
+                var _encryptpassword = new Encrypt();
+                var _encryptedpassword = _encryptpassword.Encrypt_string(password);
+                var new_user = new Users();
+                new_user.username = username;
+                new_user.password = _encryptedpassword;
+                new_user.name = Nome;
+                db.users.Add(new_user);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool update_profile(Users user)

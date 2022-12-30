@@ -13,8 +13,6 @@ namespace Message_API.Controllers
     public class MessageController : ControllerBase
     {
         private readonly IMessageRepository repos;
-        private Timer _timer;
-        private DateTime _lastChecked;
 
         public MessageController(IMessageRepository _repos) 
         {

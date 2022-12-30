@@ -34,7 +34,21 @@ namespace Message_API.Controllers
                 // Login failed
                 return BadRequest();
             }
-        }      
+        }
+
+        [HttpPost("Regist-user")]
+        public IActionResult Register(string username, string password, string Nome)
+        {
+            var regist_user = repos.regist_user(username, password, Nome);
+            if (regist_user == true)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
 
         [HttpPut("update-user")]
         public IActionResult UpdateUser(int id, RequestUserUpdate requestUser)
