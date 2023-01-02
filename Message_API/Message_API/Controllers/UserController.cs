@@ -20,9 +20,9 @@ namespace Message_API.Controllers
         }
 
         [HttpPost("login-user")]
-        public ActionResult Login(string username, string password)
+        public IActionResult Login(RequestUserLogin request)
         {
-            var login = repos.login_user(username, password);
+            var login = repos.login_user(request.username, request.password);
 
             if (login == true)
             {
@@ -37,9 +37,9 @@ namespace Message_API.Controllers
         }
 
         [HttpPost("Regist-user")]
-        public IActionResult Register(string username, string password, string Nome)
+        public IActionResult Register(RequestUserRegister request)
         {
-            var regist_user = repos.regist_user(username, password, Nome);
+            var regist_user = repos.regist_user(request.username, request.password, request.name);
             if (regist_user == true)
             {
                 return Ok();

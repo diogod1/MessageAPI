@@ -32,7 +32,10 @@ namespace Message_API.Repositories
                 {
                     return true;
                 }
-                else return false;
+                else
+                {
+                    return false;
+                }
             }
             else return false;
         }
