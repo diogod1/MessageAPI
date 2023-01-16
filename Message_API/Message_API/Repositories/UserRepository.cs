@@ -9,11 +9,13 @@ namespace Message_API.Repositories
         public bool update_profile(Users user);
         public bool login_user(string username, string password);
         public bool regist_user(string username, string password, string Nome);
+        public bool save_image(IFormFile image);
     }
 
     public class UserRepository : IUserRepository
     {
         private readonly APIDbContext db;
+        private readonly string dir_img_path = @"C:\Users\diogo\Desktop\img_teste";
 
         public UserRepository(APIDbContext _db)
         {
@@ -76,6 +78,23 @@ namespace Message_API.Repositories
                 }
             }
             else
+            {
+                return false;
+            }
+        }
+
+        public bool save_image(IFormFile image, int user_id)
+        {
+            try
+            {
+                string imagePath = Path.Combine(dir_img_path, $"image_{user_id}");
+                using (var fileStream = new FileStream(imagePath, FileMode.Create))
+                {
+                    image.CopyTo(fileStream);
+                }
+                return true;
+            }
+            catch(Exception ex)
             {
                 return false;
             }

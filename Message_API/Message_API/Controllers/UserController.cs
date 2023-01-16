@@ -50,6 +50,28 @@ namespace Message_API.Controllers
             }
         }
 
+        [HttpPost("Save-Image")]
+        public IActionResult SaveImage(IFormFile image, int user_id)
+        {
+            var userCheck = db.users.Find(user_id);
+            if(userCheck == null)
+            {
+                return NotFound("User not found");
+            }
+            else
+            {
+                if(image != null)
+                {
+                    var save_img = repos.save_image(image);
+                    return Ok(save_img);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+        }
+
         [HttpPut("Update")]
         public IActionResult UpdateUser(int id, RequestUserUpdate requestUser)
         {
@@ -60,10 +82,10 @@ namespace Message_API.Controllers
             }
             else
             {
-                userCheck.bio= requestUser.bio;
-                userCheck.name= requestUser.name;
-                userCheck.photo_path= requestUser.photo_path;
-                userCheck.status= requestUser.status;
+                userCheck.bio = requestUser.bio;
+                userCheck.name = requestUser.name;
+                userCheck.photo_path = requestUser.photo_path;
+                userCheck.status = requestUser.status;
                 db.SaveChanges();
                 return Ok();
             }
