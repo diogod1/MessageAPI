@@ -47,6 +47,6 @@ namespace Message_API.Repositories
 
         public List<Chats> GetAllChats() => db.chats.ToList();
 
-        public List<Message> GetMessages(int chatid, DateTime lastchecked) => db.messages.Where(u => u.chatid == chatid && u.sentAt >= lastchecked).ToList();
+        public List<Message> GetMessages(int chatid, DateTime lastchecked) => db.messages.Where(u => u.chatid == chatid && u.sentAt >= lastchecked).ToList(); 
     }
 }

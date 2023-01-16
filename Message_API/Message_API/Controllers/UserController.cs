@@ -19,7 +19,7 @@ namespace Message_API.Controllers
             repos = _repos;
         }
 
-        [HttpPost("login-user")]
+        [HttpPost("Login")]
         public IActionResult Login(RequestUserLogin request)
         {
             var login = repos.login_user(request.username, request.password);
@@ -36,7 +36,7 @@ namespace Message_API.Controllers
             }
         }
 
-        [HttpPost("Regist-user")]
+        [HttpPost("Register")]
         public IActionResult Register(RequestUserRegister request)
         {
             var regist_user = repos.regist_user(request.username, request.password, request.name);
@@ -50,7 +50,7 @@ namespace Message_API.Controllers
             }
         }
 
-        [HttpPut("update-user")]
+        [HttpPut("Update")]
         public IActionResult UpdateUser(int id, RequestUserUpdate requestUser)
         {
             var userCheck = db.users.Find(id);

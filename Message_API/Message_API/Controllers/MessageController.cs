@@ -19,7 +19,7 @@ namespace Message_API.Controllers
             repos = _repos;
         }
 
-        [HttpGet("get-message-chatid")]
+        [HttpGet("get-chatid")]
         public IActionResult GetMessageChatid(int _chatid, DateTime _lastchecked)
         {
             List<Message> messages = repos.GetMessages(_chatid, _lastchecked);
@@ -47,7 +47,7 @@ namespace Message_API.Controllers
             }
         }
 
-        [HttpGet("get-all-messages")]
+        [HttpGet("get-all")]
         public IActionResult GetMessage()
         {
             var message = repos.GetALLMESSAGE();
