@@ -1,10 +1,6 @@
-﻿using Message_API.Data;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Message_API.Models;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
+﻿using Message_API.Models;
 using Message_API.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Message_API.Controllers
 {
@@ -14,7 +10,7 @@ namespace Message_API.Controllers
     {
         private readonly IMessageRepository repos;
 
-        public MessageController(IMessageRepository _repos) 
+        public MessageController(IMessageRepository _repos)
         {
             repos = _repos;
         }
@@ -36,8 +32,8 @@ namespace Message_API.Controllers
         [HttpGet("get-all-chats")]
         public IActionResult GetAllChat()
         {
-            var chats = repos.GetAllChats();
-            if (chats != null)
+            List<Chats> chats = repos.GetAllChats();
+            if (chats.Count > 0)
             {
                 return Ok(chats);
             }
@@ -50,10 +46,10 @@ namespace Message_API.Controllers
         [HttpGet("get-all")]
         public IActionResult GetMessage()
         {
-            var message = repos.GetALLMESSAGE();
-            if (message != null) 
+            List<Message> messages = repos.GetALLMESSAGE();
+            if (messages.Count > 0)
             {
-                return Ok(message);
+                return Ok(messages);
             }
             else
             {
@@ -61,7 +57,7 @@ namespace Message_API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Send")]
         public IActionResult Post(PostMessage mensagem)
         {
             if (repos.Send(mensagem))
@@ -72,6 +68,6 @@ namespace Message_API.Controllers
             {
                 return BadRequest();
             }
-        }   
+        }
     }
 }

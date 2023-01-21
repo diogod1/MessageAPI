@@ -1,6 +1,5 @@
 ﻿using Message_API.Data;
 using Message_API.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Message_API.Repositories
 {
@@ -9,7 +8,8 @@ namespace Message_API.Repositories
         public bool update_profile(Users user);
         public bool login_user(string username, string password);
         public bool regist_user(string username, string password, string Nome);
-        public bool save_image(IFormFile image);
+        public bool save_image(IFormFile image, int userid);
+        public Users search(string username);
     }
 
     public class UserRepository : IUserRepository
@@ -65,16 +65,17 @@ namespace Message_API.Repositories
 
         public bool update_profile(Users user)
         {
-            if(user != null)
+            if (user != null)
             {
                 db.users.Update(user);
 
-                if(db.SaveChanges() != null)
+                if (db.SaveChanges() != null)
                 {
                     return true;
-                }else 
-                { 
-                    return false; 
+                }
+                else
+                {
+                    return false;
                 }
             }
             else
@@ -94,10 +95,23 @@ namespace Message_API.Repositories
                 }
                 return true;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return false;
             }
         }
+
+        public Users search(string username)
+        {
+            Users myUser = db.users.SingleOrDefault(user => user.username == username);
+            if (myUser != null)
+            {
+                return myUser;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
-} 
+}

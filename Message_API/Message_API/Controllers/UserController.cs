@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Message_API.Data;
 using Message_API.Models;
 using Message_API.Repositories;
-using Message_API.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Message_API.Controllers
 {
@@ -17,6 +16,20 @@ namespace Message_API.Controllers
         {
             db = _db;
             repos = _repos;
+        }
+
+        [HttpGet("Search")]
+        public IActionResult Search(string username)
+        {
+            var search = repos.search(username);
+            if (search == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(search);
+            }
         }
 
         [HttpPost("Login")]
@@ -54,15 +67,15 @@ namespace Message_API.Controllers
         public IActionResult SaveImage(IFormFile image, int user_id)
         {
             var userCheck = db.users.Find(user_id);
-            if(userCheck == null)
+            if (userCheck == null)
             {
                 return NotFound("User not found");
             }
             else
             {
-                if(image != null)
+                if (image != null)
                 {
-                    var save_img = repos.save_image(image);
+                    var save_img = repos.save_image(image, user_id);
                     return Ok(save_img);
                 }
                 else
