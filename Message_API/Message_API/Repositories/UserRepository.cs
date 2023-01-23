@@ -10,6 +10,7 @@ namespace Message_API.Repositories
         public bool regist_user(string username, string password, string Nome);
         public bool save_image(IFormFile image, int userid);
         public Users search(string username);
+        public bool change_password(string password);
     }
 
     public class UserRepository : IUserRepository
@@ -112,6 +113,11 @@ namespace Message_API.Repositories
             {
                 return null;
             }
+        }
+
+        public bool change_password(string password)
+        {
+            return true;
         }
     }
 }
