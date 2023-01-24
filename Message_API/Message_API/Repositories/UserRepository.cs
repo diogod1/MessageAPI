@@ -10,13 +10,13 @@ namespace Message_API.Repositories
         public bool regist_user(string username, string password, string Nome);
         public bool save_image(IFormFile image, int userid);
         public Users search(string username);
-        public bool change_password(string password);
+        public bool change_password(string password, string new_password, int userid);
     }
 
     public class UserRepository : IUserRepository
     {
         private readonly APIDbContext db;
-        private readonly string dir_img_path = @"C:\Users\diogo\Desktop\img_teste";
+        private readonly string dir_img_path = @"C:\Users\diogo\Desktop\testephoto";
 
         public UserRepository(APIDbContext _db)
         {
@@ -115,9 +115,28 @@ namespace Message_API.Repositories
             }
         }
 
-        public bool change_password(string password)
+        public bool change_password(string password, string new_password, int userid)
         {
-            return true;
+            Users myUser = db.users.SingleOrDefault(user => user.id == userid);
+            if (myUser != null)
+            {
+                var encrypt_password = new Encrypt().Encrypt_string(password);
+                var password_match = new Encrypt().passwords_match(encrypt_password, myUser.password);
+                if (password_match == 1)
+                {
+                    var encrypt_new = new Encrypt().Encrypt_string(new_password);
+                    db.users.Update(myUser);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

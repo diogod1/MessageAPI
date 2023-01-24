@@ -76,11 +76,18 @@ namespace Message_API.Controllers
                 if (image != null)
                 {
                     var save_img = repos.save_image(image, user_id);
-                    return Ok(save_img);
+                    if (save_img == true)
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        return BadRequest("Falha no metodo da imagem");
+                    }
                 }
                 else
                 {
-                    return BadRequest();
+                    return BadRequest("Image null");
                 }
             }
         }
@@ -101,6 +108,28 @@ namespace Message_API.Controllers
                 userCheck.status = requestUser.status;
                 db.SaveChanges();
                 return Ok();
+            }
+        }
+
+        [HttpPut("ChangePassword")]
+        public IActionResult Changepassword(string password, int userid)
+        {
+            var userCheck = db.users.Find(userid);
+            if (userCheck != null)
+            {
+                var res = repos.change_password(userCheck.password, password, userid);
+                if (res == true)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            else
+            {
+                return NotFound("User not found");
             }
         }
 
