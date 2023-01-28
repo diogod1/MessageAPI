@@ -1,6 +1,5 @@
 ﻿using Message_API.Data;
 using Message_API.Models;
-using System;
 
 namespace Message_API.Repositories
 {
@@ -9,14 +8,14 @@ namespace Message_API.Repositories
         public bool Send(PostMessage mensagem);
         public List<Message> GetALLMESSAGE();
         public List<Chats> GetAllChats();
-        public List<Message> GetMessages(int chatid,DateTime lastchecked);
+        public List<Message> GetMessages(int chatid, DateTime lastchecked);
     }
 
     public class MessageRepository : IMessageRepository
     {
-        private readonly  APIDbContext db;
+        private readonly APIDbContext db;
 
-        public MessageRepository(APIDbContext _db) 
+        public MessageRepository(APIDbContext _db)
         {
             db = _db;
         }
@@ -32,9 +31,9 @@ namespace Message_API.Repositories
                     content = mensagem.content,
                     sentAt = mensagem.sentAt,
                 };
-                db.messages.Add(send_message);  
+                db.messages.Add(send_message);
                 db.SaveChanges();
-                
+
                 return true;
             }
             catch
@@ -47,6 +46,6 @@ namespace Message_API.Repositories
 
         public List<Chats> GetAllChats() => db.chats.ToList();
 
-        public List<Message> GetMessages(int chatid, DateTime lastchecked) => db.messages.Where(u => u.chatid == chatid && u.sentAt >= lastchecked).ToList(); 
+        public List<Message> GetMessages(int chatid, DateTime lastchecked) => db.messages.Where(u => u.chatid == chatid && u.sentAt > lastchecked).ToList();
     }
 }
