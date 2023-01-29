@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
-
-namespace Message_API.Models
+﻿namespace Message_API.Models
 {
     public class PostMessage
     {
@@ -8,5 +6,6 @@ namespace Message_API.Models
         public int chatid { get; set; }
         public string content { get; set; }
         public DateTime sentAt { get; set; }
+        public string senderUsername { get; set; }
     }
 }

@@ -30,6 +30,7 @@ namespace Message_API.Repositories
                     chatid = mensagem.chatid,
                     content = mensagem.content,
                     sentAt = mensagem.sentAt,
+                    senderUsername = mensagem.senderUsername
                 };
                 db.messages.Add(send_message);
                 db.SaveChanges();

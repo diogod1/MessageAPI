@@ -10,7 +10,7 @@ namespace Message_API.Repositories
         public bool regist_user(string username, string password, string Nome);
         public bool save_image(IFormFile image, int userid);
         public Users search(string username);
-        public bool change_password(string password, string new_password, int userid);
+        public bool change_password(string old_password, string new_password, int userid);
     }
 
     public class UserRepository : IUserRepository
@@ -115,17 +115,18 @@ namespace Message_API.Repositories
             }
         }
 
-        public bool change_password(string password, string new_password, int userid)
+        public bool change_password(string old_password, string new_password, int userid)
         {
             Users myUser = db.users.SingleOrDefault(user => user.id == userid);
             if (myUser != null)
             {
-                var encrypt_password = new Encrypt().Encrypt_string(password);
-                var password_match = new Encrypt().passwords_match(encrypt_password, myUser.password);
+                var password_match = new Encrypt().passwords_match(myUser.password, old_password);
                 if (password_match == 1)
                 {
                     var encrypt_new = new Encrypt().Encrypt_string(new_password);
+                    myUser.password = encrypt_new;
                     db.users.Update(myUser);
+                    db.SaveChanges();
                     return true;
                 }
                 else
