@@ -112,12 +112,12 @@ namespace Message_API.Controllers
         }
 
         [HttpPut("ChangePassword")]
-        public IActionResult Changepassword(string old_password, string new_password, int userid)
+        public IActionResult Changepassword(PutChangePassword user)
         {
-            var userCheck = db.users.Find(userid);
+            var userCheck = db.users.Find(user.userid);
             if (userCheck != null)
             {
-                var res = repos.change_password(old_password, new_password, userid);
+                var res = repos.change_password(user.old_password, user.new_password, user.userid);
                 if (res == true)
                 {
                     return Ok();
